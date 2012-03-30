@@ -26,6 +26,19 @@ public class Lab1 {
 		//traverse();
 		findLengths();
 		findDotProduct(data.get(0), data.get(1));
+		findEuclidianDistance(data.get(0), data.get(1));
+		findManhattanDistance(data.get(0), data.get(1));
+		findPearsonCorrelation(data.get(0), data.get(1));
+		findAverage(data.get(0));
+		findMedian(data.get(0));
+		findLargest(data.get(0));
+		findSmallest(data.get(0));
+		findAverage(createVerticalVectors(data, 3));
+		findMedian(createVerticalVectors(data, 3));
+		findLargest(createVerticalVectors(data, 3));
+		findSmallest(createVerticalVectors(data, 3));
+		findStandardDeviation(data.get(0));
+
 	}
 
 
@@ -42,7 +55,7 @@ public class Lab1 {
 			}
 		}
 	}
-	
+
 	public static Double findDotProduct(Vector<Double> v1, Vector<Double> v2){
 		Double result = 0.0;
 		if(v1.size() == v2.size())
@@ -53,6 +66,162 @@ public class Lab1 {
 			}
 		}
 		System.out.println(result);
+		return result;
+	}
+
+	public static Double findEuclidianDistance(Vector<Double> v1, Vector<Double> v2){
+		Double result = 0.0;
+		if(v1.size() == v2.size())
+		{
+			for(int i = 0; i < v1.size(); i++)
+			{
+				Double difference = v2.get(i) - v1.get(i);
+				result += (difference * difference);
+			}
+		}
+		result = Math.sqrt(result);
+		System.out.println("EDistance: " + result);
+		return result;
+	}
+
+	public static Double findManhattanDistance(Vector<Double> v1, Vector<Double> v2){
+		Double result = 0.0;
+		if(v1.size() == v2.size())
+		{
+			for(int i = 0; i < v1.size(); i++)
+			{
+				Double difference = Math.abs(v2.get(i) - v1.get(i));
+				result += difference;
+			}
+		}
+		System.out.println("MDistance: " + result);
+		return result;
+	}
+
+	public static Double findPearsonCorrelation(Vector<Double> v1, Vector<Double> v2){
+		Double av1 = 0.0;
+		Double av2 = 0.0;
+		Double result = 0.0;
+		Double std1 = 0.0;
+		Double std2 = 0.0;
+		if(v1.size() == v2.size())
+		{
+			for(int i = 0; i < v1.size(); i++)
+			{
+				av1 += v1.get(i);
+				av2 += v2.get(i);
+			}
+			av1 = av1/v1.size();
+			av2 = av2/v1.size();
+
+			for(int i = 0; i < v1.size(); i++)
+			{
+				result += (v1.get(i) - av1) * (v2.get(i) - av2);
+				std1 += ((v1.get(i) - av1) * (v1.get(i) - av1));
+				std2 += ((v2.get(i) - av2) * (v2.get(i) - av2));
+			}
+			std1 = Math.sqrt(std1/(v1.size() - 1));
+			std2 = Math.sqrt(std2/(v2.size() - 1));
+			result = result/((v1.size()-1) * std1 * std2);
+		}
+		System.out.println("Std1: " + std1);
+		System.out.println("Std2: " + std2);
+		System.out.println("Pearson Correlation: " + result);
+		return result;
+	}
+	
+	public static Double findStandardDeviation(Vector<Double> v1){
+		Double av1 = 0.0;
+		Double result = 0.0;
+		Double std1 = 0.0;
+		
+			for(int i = 0; i < v1.size(); i++)
+			{
+				av1 += v1.get(i);
+			}
+			av1 = av1/v1.size();
+
+			for(int i = 0; i < v1.size(); i++)
+			{
+				std1 += ((v1.get(i) - av1) * (v1.get(i) - av1));
+			}
+			std1 = Math.sqrt(std1/(v1.size() - 1));
+		
+		System.out.println("Standard Deviation: " + std1);
+
+		return std1;
+	}
+
+	public static Double findAverage(Vector<Double> v1){
+		Double av1 = 0.0;
+
+		for(int i = 0; i < v1.size(); i++)
+		{
+			av1 += v1.get(i);
+		}
+		av1 = av1/v1.size();
+
+		System.out.println("Average: " + av1);
+		return av1;
+	}
+	
+	public static Double findSmallest(Vector<Double> v1){
+		Double result = 0.0;
+
+		result = v1.get(0);
+		for(int i = 0; i < v1.size(); i++)
+		{
+			if ( v1.get(i) < result )
+			{
+				result = v1.get(i);
+			}
+		}
+
+		System.out.println("Smallest: " + result);
+		return result;
+	}
+	
+	public static Double findLargest(Vector<Double> v1){
+		Double result = 0.0;
+
+		result = v1.get(0);
+		for(int i = 0; i < v1.size(); i++)
+		{
+			if ( v1.get(i) > result )
+			{
+				result = v1.get(i);
+			}
+		}
+
+		System.out.println("Largest: " + result);
+		return result;
+	}
+	
+	public static Double findMedian(Vector<Double> v1){
+		Double result = 0.0;
+		Collections.sort(v1);
+		if((v1.size()%2) == 0)
+		{
+			result = (v1.get(v1.size()/2) + v1.get(v1.size()/2 -1))/2;
+		}
+		else
+		{
+			result = v1.get(((v1.size() + 1)/2) - 1);
+		}
+
+		System.out.println("Median: " + result);
+		return result;
+	}
+	
+	public static Vector createVerticalVectors(ArrayList<Vector> data, Integer column)
+	{
+		Vector result = new Vector();
+		if (data != null){
+			for (Vector<Double> v : data){
+				result.add(v.get(column));
+				System.out.print(v.get(column) + "    ");
+			}
+		}
 		return result;
 	}
 
@@ -89,10 +258,10 @@ public class Lab1 {
 					} else if (s.equals("NaN")){
 						throw new InputException("NaN is not a valid number for the purposes of this excersise.");
 					}
-					  else if (s.equals("Infinity")){
-							throw new InputException("Infinity is not a valid number for the purposes of this excersise.");
-				
-					  }  else if (s.equals("-Infinity")){
+					else if (s.equals("Infinity")){
+						throw new InputException("Infinity is not a valid number for the purposes of this excersise.");
+
+					}  else if (s.equals("-Infinity")){
 						throw new InputException("Negative Infinity is not a valid number for the purposes of this excersise.");
 					}
 					try{

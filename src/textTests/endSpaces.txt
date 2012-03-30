@@ -1,0 +1,8 @@
+this
+is a 
+test of the
+way we 
+handle spaces
+on the 
+end of
+lines.

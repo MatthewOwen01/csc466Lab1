@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 import java.util.*
 ;
 
-public class Lab1 {
+public class CSVParser {
 	static ArrayList<Vector> data = new ArrayList<Vector>();
 	/**
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		try {
 			data = parse(args[0]);
 		} catch (InputException e) {

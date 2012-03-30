@@ -6,12 +6,12 @@ import org.junit.Test;
 
 
 
-public class Lab1_t {
+public class CSVParser_t {
 
-	static Lab1 l = null;
+	static CSVParser l = null;
     @BeforeClass
     public static void setUpClass() throws Exception {
-    	l = new Lab1();
+    	l = new CSVParser();
     }
 	
     @Test

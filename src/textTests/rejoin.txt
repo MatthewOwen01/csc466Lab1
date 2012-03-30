@@ -1,0 +1,2 @@
+this file tests the rejoi-
+ning ability of the parser.

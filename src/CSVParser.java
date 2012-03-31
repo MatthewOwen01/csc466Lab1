@@ -11,53 +11,68 @@ import java.util.*
 ;
 
 public class CSVParser {
-	static ArrayList<Vector> data = new ArrayList<Vector>();
+	private static ArrayList<Vector<Double>> data = new ArrayList<Vector<Double>>();
 	/**
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) {
 		try {
-			data = parse(args[0]);
+			setData(parse(args[0]));
 		} catch (InputException e) {
 			System.out.print(e.getMessage());
 			System.exit(1);
 		}
 		//traverse();
-		findLengths();
-		findDotProduct(data.get(0), data.get(1));
-		findEuclidianDistance(data.get(0), data.get(1));
-		findManhattanDistance(data.get(0), data.get(1));
-		findPearsonCorrelation(data.get(0), data.get(1));
-		findAverage(data.get(0));
-		findMedian(data.get(0));
-		findLargest(data.get(0));
-		findSmallest(data.get(0));
-		findAverage(createVerticalVectors(data, 3));
-		findMedian(createVerticalVectors(data, 3));
-		findLargest(createVerticalVectors(data, 3));
-		findSmallest(createVerticalVectors(data, 3));
-		findStandardDeviation(data.get(0));
+		//findLengths();
+		//findDotProduct(getData().get(0), getData().get(1));
+		//findEuclidianDistance(getData().get(0), getData().get(1));
+		//findManhattanDistance(getData().get(0), getData().get(1));
+		//findPearsonCorrelation(getData().get(0), getData().get(1));
+		//findAverage(getData().get(0));
+		//findMedian(getData().get(0));
+		//findLargest(getData().get(0));
+		//findSmallest(getData().get(0));
+		//findAverage(createVerticalVectors(getData(), 3));
+		//findMedian(createVerticalVectors(getData(), 3));
+		//findLargest(createVerticalVectors(getData(), 3));
+		//findSmallest(createVerticalVectors(getData(), 3));
+		//findStandardDeviation(getData().get(0));
 
 	}
+	public static Double findLength(int i){
+		Double length = 0.0;
+		Double sum = new Double(0);
+		for (Double bd : getData().get(i)){
+			sum+= bd*bd;
+		}
+		length = Math.sqrt(sum);
+		//System.out.println(length);		
+		return length;
+	}
 
-
-	public static void findLengths(){
-		if (data != null){
-			for (Vector<Double> v : data){
+	public static ArrayList<Double> findLengths(){
+		ArrayList<Double> results = new ArrayList<Double>();
+		if (getData() != null){
+			for (Vector<Double> v : getData()){
 				Double length = 0.0;
 				Double sum = new Double(0);
 				for (Double bd : v){
 					sum+= bd*bd;
 				}
 				length = Math.sqrt(sum);
-				System.out.println(length);		
+				results.add(length);
+				//System.out.println(length);		
 			}
 		}
+		return results;
 	}
 
 	public static Double findDotProduct(Vector<Double> v1, Vector<Double> v2){
 		Double result = 0.0;
+		if (v1 == null || v2 == null){
+			return null;
+		}
 		if(v1.size() == v2.size())
 		{
 			for(int i = 0; i < v1.size(); i++)
@@ -65,12 +80,15 @@ public class CSVParser {
 				result += v1.get(i) * v2.get(i);
 			}
 		}
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 
 	public static Double findEuclidianDistance(Vector<Double> v1, Vector<Double> v2){
 		Double result = 0.0;
+		if (v1 == null || v2 == null){
+			return null;
+		}
 		if(v1.size() == v2.size())
 		{
 			for(int i = 0; i < v1.size(); i++)
@@ -78,14 +96,19 @@ public class CSVParser {
 				Double difference = v2.get(i) - v1.get(i);
 				result += (difference * difference);
 			}
+		} else {
+			return null;
 		}
 		result = Math.sqrt(result);
-		System.out.println("EDistance: " + result);
+		//System.out.println("EDistance: " + result);
 		return result;
 	}
 
 	public static Double findManhattanDistance(Vector<Double> v1, Vector<Double> v2){
 		Double result = 0.0;
+		if (v1 == null || v2 == null){
+			return null;
+		}
 		if(v1.size() == v2.size())
 		{
 			for(int i = 0; i < v1.size(); i++)
@@ -94,7 +117,7 @@ public class CSVParser {
 				result += difference;
 			}
 		}
-		System.out.println("MDistance: " + result);
+		//System.out.println("MDistance: " + result);
 		return result;
 	}
 
@@ -104,6 +127,9 @@ public class CSVParser {
 		Double result = 0.0;
 		Double std1 = 0.0;
 		Double std2 = 0.0;
+		if (v1 == null || v2 == null){
+			return null;
+		}
 		if(v1.size() == v2.size())
 		{
 			for(int i = 0; i < v1.size(); i++)
@@ -124,9 +150,9 @@ public class CSVParser {
 			std2 = Math.sqrt(std2/(v2.size() - 1));
 			result = result/((v1.size()-1) * std1 * std2);
 		}
-		System.out.println("Std1: " + std1);
-		System.out.println("Std2: " + std2);
-		System.out.println("Pearson Correlation: " + result);
+		//System.out.println("Std1: " + std1);
+		//System.out.println("Std2: " + std2);
+		//System.out.println("Pearson Correlation: " + result);
 		return result;
 	}
 	
@@ -134,7 +160,9 @@ public class CSVParser {
 		Double av1 = 0.0;
 		Double result = 0.0;
 		Double std1 = 0.0;
-		
+		if (v1 == null){
+			return null;
+		}
 			for(int i = 0; i < v1.size(); i++)
 			{
 				av1 += v1.get(i);
@@ -147,27 +175,31 @@ public class CSVParser {
 			}
 			std1 = Math.sqrt(std1/(v1.size() - 1));
 		
-		System.out.println("Standard Deviation: " + std1);
+		//System.out.println("Standard Deviation: " + std1);
 
 		return std1;
 	}
 
 	public static Double findAverage(Vector<Double> v1){
 		Double av1 = 0.0;
-
+		if (v1 == null){
+			return null;
+		}
 		for(int i = 0; i < v1.size(); i++)
 		{
 			av1 += v1.get(i);
 		}
 		av1 = av1/v1.size();
 
-		System.out.println("Average: " + av1);
+		//System.out.println("Average: " + av1);
 		return av1;
 	}
 	
 	public static Double findSmallest(Vector<Double> v1){
 		Double result = 0.0;
-
+		if (v1 == null){
+			return null;
+		}
 		result = v1.get(0);
 		for(int i = 0; i < v1.size(); i++)
 		{
@@ -177,13 +209,15 @@ public class CSVParser {
 			}
 		}
 
-		System.out.println("Smallest: " + result);
+		//System.out.println("Smallest: " + result);
 		return result;
 	}
 	
 	public static Double findLargest(Vector<Double> v1){
 		Double result = 0.0;
-
+		if (v1 == null){
+			return null;
+		}
 		result = v1.get(0);
 		for(int i = 0; i < v1.size(); i++)
 		{
@@ -193,12 +227,15 @@ public class CSVParser {
 			}
 		}
 
-		System.out.println("Largest: " + result);
+		//System.out.println("Largest: " + result);
 		return result;
 	}
 	
 	public static Double findMedian(Vector<Double> v1){
 		Double result = 0.0;
+		if (v1 == null){
+			return null;
+		}
 		Collections.sort(v1);
 		if((v1.size()%2) == 0)
 		{
@@ -209,25 +246,25 @@ public class CSVParser {
 			result = v1.get(((v1.size() + 1)/2) - 1);
 		}
 
-		System.out.println("Median: " + result);
+		//System.out.println("Median: " + result);
 		return result;
 	}
 	
-	public static Vector createVerticalVectors(ArrayList<Vector> data, Integer column)
+	public static Vector<Double> createVerticalVectors(ArrayList<Vector<Double>> data2, Integer column)
 	{
-		Vector result = new Vector();
-		if (data != null){
-			for (Vector<Double> v : data){
+		Vector<Double> result = new Vector<Double>();
+		if (data2 != null){
+			for (Vector<Double> v : data2){
 				result.add(v.get(column));
-				System.out.print(v.get(column) + "    ");
+				//System.out.print(v.get(column) + "    ");
 			}
 		}
 		return result;
 	}
 
 	public static void traverse(){
-		if (data != null){
-			for (Vector<Double> v : data){
+		if (getData() != null){
+			for (Vector<Double> v : getData()){
 				System.out.println("New Vector: ");
 				for (Double bd : v){
 					System.out.println(v);
@@ -236,8 +273,8 @@ public class CSVParser {
 		}
 	}
 
-	public static ArrayList<Vector> parse(String path) throws InputException{
-		ArrayList<Vector> d = new ArrayList<Vector>();
+	public static ArrayList<Vector<Double>> parse(String path) throws InputException{
+		ArrayList<Vector<Double>> d = new ArrayList<Vector<Double>>();
 		FileReader fr = null;
 		try {
 			fr = new FileReader (path);
@@ -280,6 +317,13 @@ public class CSVParser {
 			}
 		}
 		return d;
+	}
+	public static ArrayList<Vector<Double>> getData() {
+		return data;
+	}
+	public static ArrayList<Vector<Double>> setData(ArrayList<Vector<Double>> data) {
+		CSVParser.data = data;
+		return data;
 	}
 
 

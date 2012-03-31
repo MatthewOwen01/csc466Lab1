@@ -1,4 +1,7 @@
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,6 +19,14 @@ public class TextParser_t {
 		assertTrue(TextParser.paragraphs.size() == 0);
 		assertTrue(TextParser.sentences.size() == 0);
 		assertTrue(TextParser.words.size() == 0);
+		
+		assertTrue(0 == (TextParser.wordsOccuringMoreThan(4).size()));
+		assertTrue(0 == TextParser.diffrentWordCount());
+		assertNull((TextParser.nMostFrequentWords(2)));
+		assertNull((TextParser.mostFrequentWord()));
+		assertNull((TextParser.wordsOccuringNTimes(3)));
+		assertTrue(false == TextParser.wordOccures("muchness"));
+		assertTrue(false == TextParser.wordOccures("omgwtfbbq"));
 		
     }
     
@@ -98,7 +109,24 @@ public class TextParser_t {
 		assertTrue(TextParser.words.get("and") == 5);
 		assertTrue(TextParser.words.get("mouse-traps") == 1);
 		assertTrue(TextParser.words.get("did") == 1);
-
+		ArrayList<String> aAndand = new ArrayList<String>();
+		ArrayList<String> a = new ArrayList<String>();
+		ArrayList<String> the = new ArrayList<String>();
+		a.add("a");
+		aAndand.add("a");
+		aAndand.add("and");
+		the.add("the");
+		
+		assertTrue(aAndand.containsAll(TextParser.wordsOccuringMoreThan(4)));
+		assertTrue(72 == TextParser.wordCount());
+		assertTrue(52 == TextParser.diffrentWordCount());
+		assertTrue(aAndand.containsAll(TextParser.nMostFrequentWords(2)));
+		assertTrue(a.containsAll(TextParser.mostFrequentWord()));
+		assertTrue(the.containsAll(TextParser.wordsOccuringNTimes(3)));
+		assertTrue(true == TextParser.wordOccures("muchness"));
+		assertTrue(false == TextParser.wordOccures("omgwtfbbq"));
+		
+		
     }
 	
 }

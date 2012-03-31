@@ -54,7 +54,43 @@ public class TextParser {
 			System.out.print(s + " ");
 		}
 	}
-
+	
+	
+	
+	public static ArrayList<String> wordsOccuringMoreThan(int count){
+		//TODO
+		return null;
+	}	
+	public static int wordCount(){
+		//TODO
+		return 0;
+	}
+	
+	public static int diffrentWordCount(){
+		//TODO
+		return 0;
+	}
+	
+	public static ArrayList<String> nMostFrequentWords(int count){
+		//TODO
+		return null;
+	}
+	
+	public static ArrayList<String> mostFrequentWord(){
+		//TODO
+		return null;
+	}
+	
+	public static ArrayList<String> wordsOccuringNTimes(int count){
+		//TODO
+		return null;
+	}
+	
+	public static boolean wordOccures(String s){
+		//TODO
+		return false;
+	}
+	
 	public static void parse(String path){
 		words = new HashMap<String, Integer>();
 		sentences = new ArrayList<String>();
